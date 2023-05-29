@@ -90,6 +90,17 @@ namespace Business
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             ConfigureServices(services);
+            services.AddTransient<IActivityRepository, ActivityRepository>();
+            services.AddTransient<IActivityTypeRepository, ActivityTypeRepository>();
+            services.AddTransient<ICommunicationRepository, CommunicationRepository>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<ITransportationRepository, TransportationRepository>();
+            services.AddTransient<IScoreRepository, ScoreRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+            services.AddTransient<IPlaceRepository, PlaceRepository>();
+            services.AddTransient<ITransportationTypeRepository, TransportationTypeRepository>();
+            services.AddTransient<IPlaceTypeRepository, PlaceTypeRepository>();
             services.AddTransient<ILogRepository, LogRepository>();
             services.AddTransient<ITranslateRepository, TranslateRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
@@ -113,6 +124,17 @@ namespace Business
         public void ConfigureStagingServices(IServiceCollection services)
         {
             ConfigureServices(services);
+            services.AddTransient<IActivityRepository, ActivityRepository>();
+            services.AddTransient<IActivityTypeRepository, ActivityTypeRepository>();
+            services.AddTransient<ICommunicationRepository, CommunicationRepository>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<ITransportationRepository, TransportationRepository>();
+            services.AddTransient<IScoreRepository, ScoreRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+            services.AddTransient<IPlaceRepository, PlaceRepository>();
+            services.AddTransient<ITransportationTypeRepository, TransportationTypeRepository>();
+            services.AddTransient<IPlaceTypeRepository, PlaceTypeRepository>();
             services.AddTransient<ILogRepository, LogRepository>();
             services.AddTransient<ITranslateRepository, TranslateRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
@@ -135,6 +157,17 @@ namespace Business
         public void ConfigureProductionServices(IServiceCollection services)
         {
             ConfigureServices(services);
+            services.AddTransient<IActivityRepository, ActivityRepository>();
+            services.AddTransient<IActivityTypeRepository, ActivityTypeRepository>();
+            services.AddTransient<ICommunicationRepository, CommunicationRepository>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<ITransportationRepository, TransportationRepository>();
+            services.AddTransient<IScoreRepository, ScoreRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+            services.AddTransient<IPlaceRepository, PlaceRepository>();
+            services.AddTransient<ITransportationTypeRepository, TransportationTypeRepository>();
+            services.AddTransient<IPlaceTypeRepository, PlaceTypeRepository>();
             services.AddTransient<ILogRepository, LogRepository>();
             services.AddTransient<ITranslateRepository, TranslateRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();

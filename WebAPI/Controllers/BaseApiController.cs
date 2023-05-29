@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     /// <summary>
     /// Base controller
     /// </summary>
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     [ApiController]
     public class BaseApiController : Controller
