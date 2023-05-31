@@ -27,7 +27,7 @@ namespace Business.Handlers.Places.Queries
                 _mediator = mediator;
             }
             [LogAspect(typeof(FileLogger))]
-            [SecuredOperation(Priority = 1)]
+            //[SecuredOperation(Priority = 1)]
             public async Task<IDataResult<Place>> Handle(GetPlaceQuery request, CancellationToken cancellationToken)
             {
                 var place = await _placeRepository.GetAsync(p => p.PlaceId == request.PlaceId);

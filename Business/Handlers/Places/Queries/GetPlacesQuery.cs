@@ -31,7 +31,7 @@ namespace Business.Handlers.Places.Queries
             [PerformanceAspect(5)]
             [CacheAspect(10)]
             [LogAspect(typeof(FileLogger))]
-            [SecuredOperation(Priority = 1)]
+            //[SecuredOperation(Priority = 1)]
             public async Task<IDataResult<IEnumerable<Place>>> Handle(GetPlacesQuery request, CancellationToken cancellationToken)
             {
                 return new SuccessDataResult<IEnumerable<Place>>(await _placeRepository.GetListAsync());

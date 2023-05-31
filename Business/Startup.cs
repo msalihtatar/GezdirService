@@ -90,6 +90,7 @@ namespace Business
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             ConfigureServices(services);
+            services.AddTransient<IUserPreferenceRepository, UserPreferenceRepository>();
             services.AddTransient<IActivityRepository, ActivityRepository>();
             services.AddTransient<IActivityTypeRepository, ActivityTypeRepository>();
             services.AddTransient<ICommunicationRepository, CommunicationRepository>();
@@ -124,6 +125,7 @@ namespace Business
         public void ConfigureStagingServices(IServiceCollection services)
         {
             ConfigureServices(services);
+            services.AddTransient<IUserPreferenceRepository, UserPreferenceRepository>();
             services.AddTransient<IActivityRepository, ActivityRepository>();
             services.AddTransient<IActivityTypeRepository, ActivityTypeRepository>();
             services.AddTransient<ICommunicationRepository, CommunicationRepository>();
@@ -157,6 +159,7 @@ namespace Business
         public void ConfigureProductionServices(IServiceCollection services)
         {
             ConfigureServices(services);
+            services.AddTransient<IUserPreferenceRepository, UserPreferenceRepository>();
             services.AddTransient<IActivityRepository, ActivityRepository>();
             services.AddTransient<IActivityTypeRepository, ActivityTypeRepository>();
             services.AddTransient<ICommunicationRepository, CommunicationRepository>();

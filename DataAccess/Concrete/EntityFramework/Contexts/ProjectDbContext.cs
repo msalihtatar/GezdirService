@@ -61,6 +61,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<Communication> Communications { get; set; }
         public DbSet<ActivityType> ActivityTypes { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<UserPreference> UserPreferences { get; set; }
 
         protected IConfiguration Configuration { get; }
 
@@ -257,6 +258,15 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.UseCollation("Turkish_CI_AS");
+
+            modelBuilder.Entity<UserPreference>(entity =>
+            {
+                entity.HasKey(e => e.UserId).HasName("PK__UserPref__1788CCAC123489AF");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
             });
 
             //OnModelCreatingPartial(modelBuilder);
