@@ -105,7 +105,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                 entity.Property(e => e.AddressContent)
                     .HasMaxLength(100)
                     .IsUnicode(false)
-                    .HasColumnName("Address");
+                    .HasColumnName("AddressContent");
 
                 entity.HasOne(d => d.Location).WithMany(p => p.Addresses)
                     .HasForeignKey(d => d.LocationId)
@@ -123,7 +123,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
-                    .HasColumnName("Comment");
+                    .HasColumnName("CommentContent");
 
                 entity.HasOne(d => d.Location).WithMany(p => p.Comments)
                     .HasForeignKey(d => d.LocationId)
@@ -219,7 +219,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
                 entity.ToTable("Score");
 
-                entity.Property(e => e.ScoreNum).HasColumnName("Score");
+                entity.Property(e => e.ScoreNum).HasColumnName("ScoreNum");
 
                 entity.HasOne(d => d.Location).WithMany(p => p.Scores)
                     .HasForeignKey(d => d.LocationId)

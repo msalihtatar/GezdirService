@@ -57,6 +57,26 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
+        ///<summary>
+        ///It brings the details according to its id.
+        ///</summary>
+        ///<remarks>Locations</remarks>
+        ///<return>Locations List</return>
+        ///<response code="200"></response>  
+        [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Location))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [HttpGet("gelocationdetailbyplaceid")]
+        public async Task<IActionResult> GetLocationDetailsByPlaceId(int placeId)
+        {
+            var result = await Mediator.Send(new GetLocationDetailsByPlaceIdQuery { PlaceId = placeId });
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
         /// <summary>
         /// Add Location.
         /// </summary>

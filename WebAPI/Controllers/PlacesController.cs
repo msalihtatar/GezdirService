@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Entities.Concrete;
 using System.Collections.Generic;
+using Entities.Dtos;
 
 namespace WebAPI.Controllers
 {
@@ -30,6 +31,26 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetList()
         {
             var result = await Mediator.Send(new GetPlacesQuery());
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        ///<summary>
+        ///List Places
+        ///</summary>
+        ///<remarks>Places</remarks>
+        ///<return>List Places</return>
+        ///<response code="200"></response>
+        [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<List<PlaceDto>>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [HttpGet("gettopplaces")]
+        public async Task<IActionResult> GetTopPlaceList(int placeTypeId, int count)
+        {
+            var result = await Mediator.Send(new GetTopPlacesQuery() { TopNum = count, PlaceTypeId = placeTypeId });
             if (result.Success)
             {
                 return Ok(result.Data);
