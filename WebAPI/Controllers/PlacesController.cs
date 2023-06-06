@@ -47,7 +47,7 @@ namespace WebAPI.Controllers
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<List<PlaceDto>>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpGet("gettopplaces")]
+        [HttpGet("gettopplaces/{placeTypeId}/{count}")]
         public async Task<IActionResult> GetTopPlaceList(int placeTypeId, int count)
         {
             var result = await Mediator.Send(new GetTopPlacesQuery() { TopNum = count, PlaceTypeId = placeTypeId });
