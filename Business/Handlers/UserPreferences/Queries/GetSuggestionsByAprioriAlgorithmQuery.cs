@@ -6,6 +6,7 @@ using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using Entities.Models;
 using MediatR;
 using ServiceStack;
@@ -17,9 +18,9 @@ using System.Threading.Tasks;
 
 namespace Business.Handlers.UserPreferences.Queries
 {
-    public class GetSuggestionsByAprioriAlgorithmQuery : IRequest<IDataResult<List<List<Place>>>>
+    public class GetSuggestionsByAprioriAlgorithmQuery : IRequest<IDataResult<List<PlaceDto>>>
     {
-        public class GetSuggestionsByAprioriAlgorithmQueryHandler : IRequestHandler<GetSuggestionsByAprioriAlgorithmQuery, IDataResult<List<List<Place>>>>
+        public class GetSuggestionsByAprioriAlgorithmQueryHandler : IRequestHandler<GetSuggestionsByAprioriAlgorithmQuery, IDataResult<List<PlaceDto>>>
         {
             private readonly IUserPreferenceRepository _userPreferenceRepository;
             private readonly IMediator _mediator;
@@ -34,7 +35,7 @@ namespace Business.Handlers.UserPreferences.Queries
             [CacheAspect(10)]
             [LogAspect(typeof(FileLogger))]
             //[SecuredOperation(Priority = 1)]
-            public async Task<IDataResult<List<List<Place>>>> Handle(GetSuggestionsByAprioriAlgorithmQuery request, CancellationToken cancellationToken)
+            public async Task<IDataResult<List<PlaceDto>>> Handle(GetSuggestionsByAprioriAlgorithmQuery request, CancellationToken cancellationToken)
             {
                 //take user preferences
                 var allUserPreferences = await _userPreferenceRepository.GetListAsync();
@@ -74,12 +75,12 @@ namespace Business.Handlers.UserPreferences.Queries
 
                 var result = GetStrongestRecommendations(associationRules, 15);
 
-                List<List<Place>> recommendedPlaceGroupList = new List<List<Place>>();
+                List<List<PlaceDto>> recommendedPlaceGroupList = new List<List<PlaceDto>>();
                 result.ForEach(suggestionList =>
                 {
-                    if (suggestionList.Count() >= 2)
+                    if (suggestionList.Count() > 1)
                     {
-                        List<Place> recommendedPlaceList = new List<Place>();
+                        List<PlaceDto> recommendedPlaceList = new List<PlaceDto>();
 
                         suggestionList.ForEach(suggestion => 
                         {
@@ -99,8 +100,26 @@ namespace Business.Handlers.UserPreferences.Queries
                     }
                 });
 
-                return new SuccessDataResult<List<List<Place>>>(recommendedPlaceGroupList);
+                List<PlaceDto> finalPlaceDtoList = new List<PlaceDto>();
+                List<int> placeIdList = new List<int>();
+
+                recommendedPlaceGroupList.ForEach(suggestionList =>
+                {
+                    suggestionList.ForEach(suggestion =>
+                    {
+                        if (!placeIdList.Contains(suggestion.PlaceId))
+                        {
+                            finalPlaceDtoList.Add(suggestion);
+                            placeIdList.Add(suggestion.PlaceId);
+                        }
+                    });
+                });
+
+                var resultList = finalPlaceDtoList.GroupBy(p => p.PlaceTypeId).SelectMany(g => g.Take(2)).ToList();
+
+                return new SuccessDataResult<List<PlaceDto>>(resultList);
             }
+
             // associationRules listesini kullanarak en güçlü önerileri getiren metod
             private List<List<string>> GetStrongestRecommendations(List<AssociationRuleModel> associationRules, int topN)
             {

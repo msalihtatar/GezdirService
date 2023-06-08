@@ -11,5 +11,6 @@ namespace DataAccess.Abstract
     public interface IPlaceRepository : IEntityRepository<Place>
     {
         Task<List<PlaceDto>> GetTopPlacesDto(int topNum, int placeTypeId);
+        Task<PlaceDto> GetPlacesDto(int placeId);
     }
 }

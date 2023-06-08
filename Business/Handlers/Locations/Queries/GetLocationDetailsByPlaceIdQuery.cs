@@ -8,8 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Core.Aspects.Autofac.Logging;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
-using Entities.Dtos;
 using System.Collections.Generic;
+using Entities.Dtos;
 
 namespace Business.Handlers.Locations.Queries
 {

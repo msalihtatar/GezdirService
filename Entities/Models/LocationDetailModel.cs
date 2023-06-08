@@ -1,14 +1,12 @@
-﻿using Core.Entities;
-using Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Dtos
+namespace Entities.Models
 {
-    public class LocationDto : IDto
+    public class LocationDetailModel
     {
         public int LocationId { get; set; }
 
@@ -25,13 +23,5 @@ namespace Entities.Dtos
         public string Explanation { get; set; }
 
         public int ScoreNum { get; set; }
-
-        public string Address { get; set; }
-
-        public List<CommentDto> Comments { get; set; }
-
-        public CommunicationDto Communication { get; set; }
-
-        public List<TransportationDto> Transportations { get; set; }
     }
 }

@@ -14,7 +14,6 @@ using Core.Aspects.Autofac.Caching;
 
 namespace Business.Handlers.Locations.Queries
 {
-
     public class GetLocationsQuery : IRequest<IDataResult<IEnumerable<Location>>>
     {
         public class GetLocationsQueryHandler : IRequestHandler<GetLocationsQuery, IDataResult<IEnumerable<Location>>>
@@ -34,7 +33,8 @@ namespace Business.Handlers.Locations.Queries
             //[SecuredOperation(Priority = 1)]
             public async Task<IDataResult<IEnumerable<Location>>> Handle(GetLocationsQuery request, CancellationToken cancellationToken)
             {
-                return new SuccessDataResult<IEnumerable<Location>>(await _locationRepository.GetListAsync());
+                var result = await _locationRepository.GetListAsync();
+                return new SuccessDataResult<IEnumerable<Location>>(result);
             }
         }
     }

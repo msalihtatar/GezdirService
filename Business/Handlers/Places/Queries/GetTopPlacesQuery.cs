@@ -28,6 +28,7 @@ namespace Business.Handlers.Places.Queries
                 _placeRepository = placeRepository;
                 _mediator = mediator;
             }
+
             [LogAspect(typeof(FileLogger))]
             //[SecuredOperation(Priority = 1)]
             public async Task<IDataResult<List<PlaceDto>>> Handle(GetTopPlacesQuery request, CancellationToken cancellationToken)

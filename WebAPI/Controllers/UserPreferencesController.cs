@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Entities.Concrete;
 using System.Collections.Generic;
+using Entities.Dtos;
 
 namespace WebAPI.Controllers
 {
@@ -24,7 +25,7 @@ namespace WebAPI.Controllers
         ///<return>List UserPreferences</return>
         ///<response code="200"></response>
         [Produces("application/json", "text/plain")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserPreference>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<PlaceDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpGet("getsuggestionsbyapriorialgorithm")]
         public async Task<IActionResult> GetSuggestionsByAprioriAlgorithm()

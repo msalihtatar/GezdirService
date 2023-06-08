@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Entities.Concrete;
 using System.Collections.Generic;
+using Entities.Models;
 
 namespace WebAPI.Controllers
 {
@@ -30,6 +31,26 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetList()
         {
             var result = await Mediator.Send(new GetLocationsQuery());
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        ///<summary>
+        ///List Locations
+        ///</summary>
+        ///<remarks>Locations</remarks>
+        ///<return>List Locations</return>
+        ///<response code="200"></response>
+        [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<LocationDetailModel>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [HttpGet("getalllocationdetail")]
+        public async Task<IActionResult> GetAllLocationDetailList()
+        {
+            var result = await Mediator.Send(new GetAllLocationDetailQuery());
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -66,7 +87,7 @@ namespace WebAPI.Controllers
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Location))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpGet("gelocationdetailbyplaceid")]
+        [HttpGet("gelocationdetailbyplaceid/{placeId}")]
         public async Task<IActionResult> GetLocationDetailsByPlaceId(int placeId)
         {
             var result = await Mediator.Send(new GetLocationDetailsByPlaceIdQuery { PlaceId = placeId });
