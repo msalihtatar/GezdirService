@@ -12,6 +12,6 @@ namespace DataAccess.Abstract
     {
         Task<List<LocationDetailModel>> GetAllLocationDetailList();
         Task<LocationDto> GetLocationDetailByLocationId(int locationId);
-        Task<List<LocationDto>> GetLocationDetailByPlaceId(int placeId);
+        Task<LocationDto> GetLocationDetailByPlaceId(int placeId);
     }
 }

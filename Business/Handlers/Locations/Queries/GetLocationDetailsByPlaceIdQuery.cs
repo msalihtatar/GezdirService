@@ -13,11 +13,11 @@ using Entities.Dtos;
 
 namespace Business.Handlers.Locations.Queries
 {
-    public class GetLocationDetailsByPlaceIdQuery : IRequest<IDataResult<List<LocationDto>>>
+    public class GetLocationDetailsByPlaceIdQuery : IRequest<IDataResult<LocationDto>>
     {
         public int PlaceId { get; set; }
 
-        public class GetLocationDetailsByPlaceIdQueryHandler : IRequestHandler<GetLocationDetailsByPlaceIdQuery, IDataResult<List<LocationDto>>>
+        public class GetLocationDetailsByPlaceIdQueryHandler : IRequestHandler<GetLocationDetailsByPlaceIdQuery, IDataResult<LocationDto>>
         {
             private readonly ILocationRepository _locationRepository;
             private readonly IMediator _mediator;
@@ -29,10 +29,10 @@ namespace Business.Handlers.Locations.Queries
             }
             [LogAspect(typeof(FileLogger))]
             //[SecuredOperation(Priority = 1)]
-            public async Task<IDataResult<List<LocationDto>>> Handle(GetLocationDetailsByPlaceIdQuery request, CancellationToken cancellationToken)
+            public async Task<IDataResult<LocationDto>> Handle(GetLocationDetailsByPlaceIdQuery request, CancellationToken cancellationToken)
             {
                 var locationDetailList = await _locationRepository.GetLocationDetailByPlaceId(request.PlaceId);
-                return new SuccessDataResult<List<LocationDto>>(locationDetailList);
+                return new SuccessDataResult<LocationDto>(locationDetailList);
             }
         }
     }

@@ -20,7 +20,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
         }
 
-        public async Task<List<LocationDto>> GetLocationDetailByPlaceId(int placeId)
+        public async Task<LocationDto> GetLocationDetailByPlaceId(int placeId)
         {
             var locationList = await Context.Locations.Include(l => l.Place)
                                                      .Include(l => l.Scores)
@@ -50,8 +50,7 @@ namespace DataAccess.Concrete.EntityFramework
                 });
             });
 
-
-            return locationDtoList;
+            return locationDtoList.FirstOrDefault();
         }
 
         public async Task<List<LocationDetailModel>> GetAllLocationDetailList()

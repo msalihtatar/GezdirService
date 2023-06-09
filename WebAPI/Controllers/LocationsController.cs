@@ -45,6 +45,26 @@ namespace WebAPI.Controllers
         ///<return>List Locations</return>
         ///<response code="200"></response>
         [Produces("application/json", "text/plain")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FinalLocationModel>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [HttpGet("getallincludesuggestions")]
+        public async Task<IActionResult> GetAllLocationDetailListIncludeSuggestedPlace()
+        {
+            var result = await Mediator.Send(new GetAllLocationDetailsIncludeSuggestedQuery());
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        ///<summary>
+        ///List Locations
+        ///</summary>
+        ///<remarks>Locations</remarks>
+        ///<return>List Locations</return>
+        ///<response code="200"></response>
+        [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<LocationDetailModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpGet("getalllocationdetail")]
@@ -87,7 +107,7 @@ namespace WebAPI.Controllers
         [Produces("application/json", "text/plain")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Location))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpGet("gelocationdetailbyplaceid/{placeId}")]
+        [HttpGet("detail/{placeId}")]
         public async Task<IActionResult> GetLocationDetailsByPlaceId(int placeId)
         {
             var result = await Mediator.Send(new GetLocationDetailsByPlaceIdQuery { PlaceId = placeId });
