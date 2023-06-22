@@ -9,6 +9,7 @@ using Entities.Concrete;
 using Entities.Dtos;
 using Entities.Models;
 using MediatR;
+using Newtonsoft.Json;
 using ServiceStack;
 using System;
 using System.Collections.Generic;
@@ -99,6 +100,8 @@ namespace Business.Handlers.UserPreferences.Queries
                         recommendedPlaceGroupList.Add(recommendedPlaceList);
                     }
                 });
+
+                var jsonResult = JsonConvert.SerializeObject(recommendedPlaceGroupList);
 
                 List<PlaceDto> finalPlaceDtoList = new List<PlaceDto>();
                 List<int> placeIdList = new List<int>();
